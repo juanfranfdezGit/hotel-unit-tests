@@ -7,19 +7,21 @@ export class Room {
     }
 
     isOccupied(date) {
-        return this.bookings.some(b =>
-        date >= b.checkIn && date < b.checkOut
+        return this.bookings.some(booking =>
+            date >= booking.checkIn && date < booking.checkOut
         );
     }
 
     occupancyPercentage(startDate, endDate) {
         const totalDays = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1;
         let occupiedDays = 0;
+
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        if (this.isOccupied(new Date(d))) {
-            occupiedDays++;
+            if (this.isOccupied(new Date(d))) {
+                occupiedDays++;
+            }
         }
-        }
+
         return Math.round((occupiedDays / totalDays) * 100);
     }
 
@@ -30,10 +32,11 @@ export class Room {
 
     static availableRooms(rooms, startDate, endDate) {
         return rooms.filter(room => {
-        for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-            if (room.isOccupied(new Date(d))) return false;
-        }
-        return true;
+            for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+                if (room.isOccupied(new Date(d))) return false;
+            }
+            
+            return true;
         });
     }
 }
@@ -53,6 +56,6 @@ export class Booking {
         let base = this.room.rate * nights;
         base -= base * (this.room.discount / 100);
         base -= base * (this.discount / 100);
-        return base / 100; // Convert cents to euros
+        return base / 100; 
     }
 }
