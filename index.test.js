@@ -15,7 +15,7 @@ describe('Room', () => {
     test('isOccupied returns true if date is within a booking', () => {
         expect(room.isOccupied(new Date('2025-05-01'))).toBe(true);
         expect(room.isOccupied(new Date('2025-05-02'))).toBe(true);
-        expect(room.isOccupied(new Date('2025-05-05'))).toBe(false);
+        expect(room.isOccupied(new Date('2025-05-06'))).toBe(false);
     });
 
     test('isOccupied returns false if date is not within any booking', () => {
@@ -25,8 +25,8 @@ describe('Room', () => {
 
     test('occupancyPercentage returns correct value', () => {
         const start = new Date('2025-05-01');
-        const end = new Date('2025-05-05');
-        expect(room.occupancyPercentage(start, end)).toBe(60);
+        const end = new Date('2025-05-07');
+        expect(room.occupancyPercentage(start, end)).toBe(71);
     });
 
     test('static totalOccupancyPercentage works', () => {

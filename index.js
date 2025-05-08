@@ -8,7 +8,7 @@ export class Room {
 
     isOccupied(date) {
         return this.bookings.some(booking =>
-            date >= booking.checkIn && date < booking.checkOut
+            date >= booking.checkIn && date <= booking.checkOut
         );
     }
 
